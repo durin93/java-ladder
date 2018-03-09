@@ -7,8 +7,8 @@ public class LadderGame {
 		int joinUser = input.joinUser();
 		int height = input.maxLadder();
 
-		LadderManager ldManager = new LadderManager(height, joinUser);
-		String[][] ladderInfo = ldManager.makeLadder();
+		LadderManager ldManager = new LadderManager();
+		String[][] ladderInfo = ldManager.makeLadder(height, joinUser);
 
 		GameOutput gameOutput = new GameOutput(ladderInfo);
 		gameOutput.printLadder(ladderInfo);
