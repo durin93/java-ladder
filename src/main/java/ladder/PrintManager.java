@@ -26,8 +26,7 @@ public class PrintManager {
 		
 		for (int i = 0; i < height; i++) {
 			printLadder(i);
-			System.out.print("|");
-			System.out.println();
+			System.out.print("|\n");
 		}
 	}
 
@@ -44,7 +43,6 @@ public class PrintManager {
 		if (chkIsBranch(i, col, j) == "-") {
 			col = colUp(col, i);
 		}
-
 		return col;
 	}
 
