@@ -1,16 +1,19 @@
 package ladder;
 
+import java.util.List;
+
 public class LadderGame {
 
 	public static void main(String[] args) {
 
 		PrintManager prManager = new PrintManager();
 		LadderManager ldManager = new LadderManager();
-		int joinUser = prManager.joinUser();
-		int maxLadder = prManager.maxLadder();
+		List<String> joinUser = prManager.joinUser();
 
-		ldManager.makeLadder(joinUser, maxLadder);
+		int maxLadder = prManager.maxLadder();
+		ldManager.makeLadder(joinUser.size(), maxLadder);
+
 		ldManager.addMatchBranch(maxLadder);
-		prManager.printLadder(ldManager.sortLadder());
+		prManager.printLadder(ldManager.sortLadder(), joinUser);
 	}
 }

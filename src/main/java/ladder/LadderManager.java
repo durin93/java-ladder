@@ -6,11 +6,11 @@ import java.util.Random;
 public class LadderManager {
 
 	private ArrayList<Branch> branch;
-	private ArrayList<ArrayList<Branch>> branchArr;
+	private ArrayList<BranchLine> branchArr;
 
 	public LadderManager() {
 		branch = new ArrayList<Branch>();
-		branchArr = new ArrayList<ArrayList<Branch>>();
+		branchArr = new ArrayList<BranchLine>();
 	}
 
 	public void makeLadder(int joinUser, int height) {
@@ -35,30 +35,51 @@ public class LadderManager {
 
 	public void addMatchBranch(int height) {
 		for (int b = 0; b < height; b++) {
-			addCheckedBranch(chkMatchBranch(b, new ArrayList<Branch>()));
+			addBranchLine(chkMatchBranch(b, new BranchLine()));
 		}
+		chkNearBranch();
 	}
 
-	public ArrayList<Branch> chkMatchBranch(int b, ArrayList<Branch> rowMatchedBranch) {
+	public BranchLine chkMatchBranch(int b, BranchLine oneBranchLine) {
 		for (int c = 0; c < branch.size(); c++) {
-			chkRowMatchBranch(b, c, rowMatchedBranch);
+			if (branch.get(c).getRow() == b) {
+				oneBranchLine.add(branch.get(c));
+			}
 		}
-		return rowMatchedBranch;
+		return oneBranchLine;
 	}
 
-	public void chkRowMatchBranch(int b, int c, ArrayList<Branch> rowMatchedBranch) {
-		if (branch.get(c).getRow() == b) {
-			rowMatchedBranch.add(branch.get(c));
-		}
-	}
-
-	public void addCheckedBranch(ArrayList<Branch> rowMatchedBranch) {
-		if (rowMatchedBranch != null) {
-			branchArr.add(rowMatchedBranch);
+	public void addBranchLine(BranchLine oneBranchLine) {
+		if (oneBranchLine != null) {
+			branchArr.add(oneBranchLine);
 		}
 	}
 
-	public ArrayList<ArrayList<Branch>> sortLadder() {
+	public void chkNearBranch() {
+		for (int i = 0; i < branchArr.size(); i++) {
+			chkNearBranch(i);
+		}
+	}
+
+	public void chkNearBranch(int i) {
+		for (int j = 0; j < branchArr.get(i).getOneBranchLine().size(); j++) {
+			removeNearBranch(i, j);
+		}
+	}
+
+	public void removeNearBranch(int i, int j) {
+		if (j < branchArr.get(i).getOneBranchLine().size() - 1 && branchArr.get(i).getOneBranchLine().get(j).getCol()
+				+ 1 == branchArr.get(i).getOneBranchLine().get(j + 1).getCol()) {
+			branchArr.get(i).getOneBranchLine().remove(j);
+		}
+
+		if (j < branchArr.get(i).getOneBranchLine().size() - 1 && branchArr.get(i).getOneBranchLine().get(j)
+				.getCol() == branchArr.get(i).getOneBranchLine().get(j + 1).getCol() - 1) {
+			branchArr.get(i).getOneBranchLine().remove(j + 1);
+		}
+	}
+
+	public ArrayList<BranchLine> sortLadder() {
 		for (int i = 0; i < branchArr.size() - 1; i++) {
 			sortLadder(i);
 		}
@@ -66,17 +87,18 @@ public class LadderManager {
 	}
 
 	public void sortLadder(int i) {
-		for (int j = 0; j < branchArr.get(i).size() - 1; j++) {
+		for (int j = 0; j < branchArr.get(i).getOneBranchLine().size() - 1; j++) {
 			sortLadder(i, j);
 		}
 	}
 
 	public void sortLadder(int i, int j) {
 		Branch temp = new Branch(0, 0);
-		if (branchArr.get(i).get(j).getCol() > branchArr.get(i).get(j + 1).getCol()) {
-			temp = branchArr.get(i).get(j);
-			branchArr.get(i).set(i, branchArr.get(i).get(j + 1));
-			branchArr.get(i).set(i + 1, temp);
+		if (branchArr.get(i).getOneBranchLine().get(j).getCol() > branchArr.get(i).getOneBranchLine().get(j + 1)
+				.getCol()) {
+			temp = branchArr.get(i).getOneBranchLine().get(j);
+			branchArr.get(i).getOneBranchLine().set(i, branchArr.get(i).getOneBranchLine().get(j + 1));
+			branchArr.get(i).getOneBranchLine().set(i + 1, temp);
 		}
 	}
 
