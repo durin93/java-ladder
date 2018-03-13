@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class PrintManager {
-	private ArrayList<BranchLine> branchArr;
+	private ArrayList<BranchLine> BranchLineArr;
 
 	public List<String> joinUser(Scanner sc) {
 		System.out.println("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
@@ -20,8 +20,7 @@ public class PrintManager {
 	}
 
 	public void printLadder(ArrayList<BranchLine> branchArr, List<String> joinUser) {
-
-		this.branchArr = branchArr;
+		this.BranchLineArr = branchArr;
 		printUser(joinUser);
 
 		for (int i = 0; i < branchArr.size(); i++) {
@@ -46,15 +45,15 @@ public class PrintManager {
 
 	public int printBranch(int i, int j, int col) {
 		System.out.print("|");
-		System.out.print(branchArr.get(i).chkIsBranch(col, j, branchArr.get(i)));
-		if (branchArr.get(i).chkIsBranch(col, j, branchArr.get(i)) == "-----") {
+		System.out.print(BranchLineArr.get(i).chkIsBranch(col, j));
+		if (BranchLineArr.get(i).chkIsBranch(col, j) == "-----") {
 			col = colUp(col, i);
 		}
 		return col;
 	}
 
 	public int colUp(int col, int i) {
-		if (col < branchArr.get(i).getOneBranchSet().size() - 1) {
+		if (col < BranchLineArr.get(i).getOneBranchSet().size() - 1) {
 			col++;
 		}
 		return col;

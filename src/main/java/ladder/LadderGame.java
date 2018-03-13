@@ -14,7 +14,6 @@ public class LadderGame {
 		int maxLadder = prManager.maxLadder(sc);
 
 		ldManager.makeLadder(joinUser.size(), maxLadder);
-		ldManager.addMatchBranch(maxLadder);
-		prManager.printLadder(ldManager.getBranchArr(), joinUser);
+		prManager.printLadder(ldManager.getBranchLineArr(), joinUser);
 	}
 }
