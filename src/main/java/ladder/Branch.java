@@ -17,4 +17,8 @@ public class Branch {
 	public int getCol() {
 		return col;
 	}
+
+	public boolean matchBranch(Branch branch, int b) {
+		return branch.getRow() == b;
+	}
 }
