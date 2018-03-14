@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class LadderManager {
 
-	public ArrayList<BranchLine> makeLadder(int joinUser, int height) {
+	public static ArrayList<BranchLine> makeLadder(int joinUser, int height) {
 		ArrayList<BranchLine> BranchLineArr = new ArrayList<>();
 		for (int i = 0; i < height; i++) {
 			BranchLineArr.add(addBranchLine(joinUser));
@@ -12,7 +12,7 @@ public class LadderManager {
 		return BranchLineArr;
 	}
 
-	public BranchLine addBranchLine(int joinUser) {
+	public static BranchLine addBranchLine(int joinUser) {
 		BranchLine branchLine = new BranchLine();
 
 		for (int j = 0; j < joinUser; j++) {

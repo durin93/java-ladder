@@ -5,17 +5,23 @@ import java.util.List;
 import java.util.Scanner;
 
 public class InputManager {
-	
+
 	public static Scanner sc = new Scanner(System.in);
-	
-	public List<String> joinUser() {
-		System.out.println("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
-		List<String> names = Arrays.asList(sc.nextLine().split(","));
+
+	public static List<String> joinUser() {
+		List<String> names;
+		for (;;) {
+			System.out.println("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
+			names = Arrays.asList(sc.nextLine().split(","));
+			if (DataProcess.checkNamesLength(names)) {
+				break;
+			}
+		}
 		return names;
 	}
 
-	public int maxLadder() {
-		System.out.println("최대 사다리 높이는 몇 개인가요?");
+	public static int maxLadder() {
+		Util.print("\n최대 사다리 높이는 몇 개인가요?");
 		return sc.nextInt();
 	}
 }

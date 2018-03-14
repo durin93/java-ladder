@@ -14,7 +14,6 @@ public class BranchLine {
 	}
 
 	public boolean check(Boolean branch, int j) {
-
 		if (j != 0 && oneBranchSet.get(j - 1)) {
 			return false;
 		}

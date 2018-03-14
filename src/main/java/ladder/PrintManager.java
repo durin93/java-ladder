@@ -9,32 +9,25 @@ public class PrintManager {
 
 	public void printUser(List<String> joinUser) {
 		for (int i = 0; i < joinUser.size(); i++) {
-			System.out.print(joinUser.get(i) + "     ");
+			Util.print(joinUser.get(i) + "     ");
 		}
-		System.out.println();
+		Util.print("\n");
 	}
 
 	public void printLadder(ArrayList<BranchLine> branchArr) {
 		this.branchArr = branchArr;
 		for (int i = 0; i < branchArr.size(); i++) {
-			System.out.print("|");
+			Util.print("|");
 			printLadder(i);
-			System.out.println();
+			Util.print("\n");
 		}
 	}
 
 	public void printLadder(int i) {
 		for (int j = 0; j < branchArr.get(i).getLength() - 1; j++) {
-			System.out.print(checkBranch(i, j));
-			System.out.print("|");
+			Util.print(DataProcess.checkBranch(i, j, branchArr));
+			Util.print("|");
 		}
-	}
-
-	public String checkBranch(int i, int j) {
-		if (branchArr.get(i).getPoint(j)) {
-			return "-----";
-		}
-		return "     ";
 	}
 
 }
