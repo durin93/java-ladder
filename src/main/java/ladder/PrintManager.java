@@ -1,33 +1,11 @@
 package ladder;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class PrintManager {
-	private ArrayList<BranchLine> BranchLineArr;
 
-	public List<String> joinUser(Scanner sc) {
-		System.out.println("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
-		List<String> names = Arrays.asList(sc.nextLine().split(","));
-		return names;
-	}
-
-	public int maxLadder(Scanner sc) {
-		System.out.println("최대 사다리 높이는 몇 개인가요?");
-		return sc.nextInt();
-	}
-
-	public void printLadder(ArrayList<BranchLine> branchArr, List<String> joinUser) {
-		this.BranchLineArr = branchArr;
-		printUser(joinUser);
-
-		for (int i = 0; i < branchArr.size(); i++) {
-			printLadder(i, joinUser.size());
-			System.out.print("|\n");
-		}
-	}
+	ArrayList<BranchLine> branchArr;
 
 	public void printUser(List<String> joinUser) {
 		for (int i = 0; i < joinUser.size(); i++) {
@@ -36,26 +14,27 @@ public class PrintManager {
 		System.out.println();
 	}
 
-	public void printLadder(int i, int joinUser) {
-		int col = 0;
-		for (int j = 0; j < joinUser - 1; j++) {
-			col = printBranch(i, j, col);
+	public void printLadder(ArrayList<BranchLine> branchArr) {
+		this.branchArr = branchArr;
+		for (int i = 0; i < branchArr.size(); i++) {
+			System.out.print("|");
+			printLadder(i);
+			System.out.println();
 		}
 	}
 
-	public int printBranch(int i, int j, int col) {
-		System.out.print("|");
-		System.out.print(BranchLineArr.get(i).chkIsBranch(col, j));
-		if (BranchLineArr.get(i).chkIsBranch(col, j) == "-----") {
-			col = colUp(col, i);
+	public void printLadder(int i) {
+		for (int j = 0; j < branchArr.get(i).getLength() - 1; j++) {
+			System.out.print(checkBranch(i, j));
+			System.out.print("|");
 		}
-		return col;
 	}
 
-	public int colUp(int col, int i) {
-		if (col < BranchLineArr.get(i).getOneBranchSet().size() - 1) {
-			col++;
+	public String checkBranch(int i, int j) {
+		if (branchArr.get(i).getPoint(j)) {
+			return "-----";
 		}
-		return col;
+		return "     ";
 	}
+
 }

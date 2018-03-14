@@ -3,29 +3,30 @@ package ladder;
 import java.util.ArrayList;
 
 public class BranchLine {
-	private ArrayList<Integer> oneBranchSet;
+	private ArrayList<Boolean> oneBranchSet;
 
 	public BranchLine() {
 		this.oneBranchSet = new ArrayList<>();
 	}
 
-	public void add(int row, ArrayList<Integer> oneBranchSet) {
-		this.oneBranchSet = oneBranchSet;
+	public void add(int j, Boolean branch) {
+		oneBranchSet.add(check(branch, j));
 	}
 
-	public ArrayList<Integer> getOneBranchSet() {
-		return oneBranchSet;
-	}
+	public boolean check(Boolean branch, int j) {
 
-	public String chkIsBranch(int col, int j) {
-		if (oneBranchSet.size() != 0 && oneBranchSet.get(col) == j) {
-			return "-----";
+		if (j != 0 && oneBranchSet.get(j - 1)) {
+			return false;
 		}
-		return "     ";
+		return Util.getRandomBoolean();
 	}
 
-	public boolean matchBranch(int row, int b) {
-		return row == b;
+	public boolean getPoint(int b) {
+		return oneBranchSet.get(b);
+	}
+
+	public int getLength() {
+		return oneBranchSet.size();
 	}
 
 }
