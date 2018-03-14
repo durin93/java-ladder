@@ -7,18 +7,27 @@ public class DataProcess {
 
 	public static final int MAXNAMELEGTH = 5;
 
-	public static Boolean checkNamesLength(List<String> names) {
-		for (int i = 0; i < names.size(); i++) {
-			checkNamesLength(names, i);
+	public static Boolean checkFlag(List<String> names) {
+		if (checkNamesLength(names) == true) {
+			return false;
 		}
 		return true;
 	}
 
-	public static void checkNamesLength(List<String> names, int i) {
-		if (names.get(i).length() > MAXNAMELEGTH) {
-			Util.print("최대 5글자 까지만 입력가능합니다." + i + "번째 이름 길이초과\n");
-			InputManager.joinUser();
+	public static Boolean checkNamesLength(List<String> names) {
+		int flag = 0;
+		for (int i = 0; i < names.size(); i++) {
+			flag = checkNamesLength(names, i, flag);
 		}
+		return flag <= 0;
+	}
+
+	public static int checkNamesLength(List<String> names, int i, int flag) {
+		if (names.get(i).length() > MAXNAMELEGTH) {
+			Util.print("최대 5글자 까지만 입력가능합니다." + (i + 1) + "번째 이름 길이초과\n");
+			flag++;
+		}
+		return flag;
 	}
 
 	public static String checkBranch(int i, int j, ArrayList<BranchLine> branchArr) {

@@ -9,15 +9,13 @@ public class InputManager {
 	public static Scanner sc = new Scanner(System.in);
 
 	public static List<String> joinUser() {
-		List<String> names;
-		for (;;) {
+		List<String> names = null;
+		Boolean flag = true;
 
+		while (flag) {
 			System.out.println("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
 			names = Arrays.asList(sc.nextLine().split(","));
-
-			if (DataProcess.checkNamesLength(names)) {
-				break;
-			}
+			flag = DataProcess.checkFlag(names);
 		}
 		return names;
 	}
