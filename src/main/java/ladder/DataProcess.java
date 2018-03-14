@@ -6,12 +6,11 @@ import java.util.List;
 public class DataProcess {
 
 	public static final int MAXNAMELEGTH = 5;
+	public static final int RANDOMRANGE = 8;
+	public static final int RANDOMMIN = 3;
 
 	public static Boolean checkFlag(List<String> names) {
-		if (checkNamesLength(names) == true) {
-			return false;
-		}
-		return true;
+		return !checkNamesLength(names);
 	}
 
 	public static Boolean checkNamesLength(List<String> names) {
@@ -35,6 +34,13 @@ public class DataProcess {
 			return "-----";
 		}
 		return "     ";
+	}
+
+	public static Boolean getRandomBoolean(int randNum) {
+		if (randNum > RANDOMMIN) {
+			return true;
+		}
+		return false;
 	}
 
 }

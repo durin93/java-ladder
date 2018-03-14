@@ -16,7 +16,7 @@ public class LadderManager {
 		BranchLine branchLine = new BranchLine();
 
 		for (int j = 0; j < joinUser; j++) {
-			branchLine.add(j, Util.getRandomBoolean());
+			branchLine.add(j, DataProcess.getRandomBoolean(Util.RAND.nextInt(DataProcess.RANDOMRANGE)));
 		}
 		return branchLine;
 	}

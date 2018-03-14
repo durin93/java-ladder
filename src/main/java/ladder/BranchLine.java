@@ -17,7 +17,7 @@ public class BranchLine {
 		if (j != 0 && oneBranchSet.get(j - 1)) {
 			return false;
 		}
-		return Util.getRandomBoolean();
+		return DataProcess.getRandomBoolean(Util.RAND.nextInt(DataProcess.RANDOMRANGE));
 	}
 
 	public boolean getPoint(int b) {
