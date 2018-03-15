@@ -5,48 +5,45 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import ladder.domain.BranchLine;
 import ladder.domain.DataProcess;
 
-public class testDataProcess {
-	ArrayList<BranchLine> BranchLineArr;
+public class DataProcessTest {
+	ArrayList<BranchLine> branchLines;
 	BranchLine branchLine;
 	List<String> names;
 
-	@Before
-	public void setup() {
-		BranchLineArr = new ArrayList<>();
-		branchLine = new BranchLine();
-		branchLine.add(true);
-		branchLine.add(false);
-		BranchLineArr.add(branchLine);
-		names = Arrays.asList("pobipobi", "gram");
-	}
-
 	@Test
 	public void testCheckFlag() {
+		names = Arrays.asList("pobipobi", "gram");
 		assertEquals(true, DataProcess.checkFlag(names));
 	}
 
 	@Test
 	public void testCheckNamesLength() {
+		names = Arrays.asList("pobipobi", "gram");
 		assertEquals(false, DataProcess.checkNamesLength(names));
 	}
 
 	@Test
 	public void testCheckNameLength() {
+		names = Arrays.asList("pobipobi", "gram");
 		assertEquals(1, DataProcess.checkNamesLength(names, 0, 0));
 		assertEquals(0, DataProcess.checkNamesLength(names, 1, 0));
 	}
 
 	@Test
 	public void testCheckBranch() {
-		assertEquals("-----", DataProcess.checkBranch(0, 0, BranchLineArr));
-		assertEquals("     ", DataProcess.checkBranch(0, 1, BranchLineArr));
+		branchLine = new BranchLine();
+		branchLine.add(true);
+		branchLine.add(false);
+		branchLines = new ArrayList<>();
+		branchLines.add(branchLine);
+
+		assertEquals("-----", DataProcess.checkBranch(0, 0, branchLines));
+		assertEquals("     ", DataProcess.checkBranch(0, 1, branchLines));
 	}
 
 	@Test

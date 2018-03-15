@@ -10,18 +10,18 @@ public class BranchLine {
 	}
 
 	public void add(int j) {
-		oneBranchSet.add(check(j));
+		oneBranchSet.add(check(j, Util.RAND.nextInt(DataProcess.RANDOMRANGE)));
 	}
 
 	public void add(Boolean check) {
 		oneBranchSet.add(check);
 	}
 
-	public boolean check(int j) {
+	public boolean check(int j, int rand) {
 		if (j != 0 && oneBranchSet.get(j - 1)) {
 			return false;
 		}
-		return DataProcess.getQuarter(Util.RAND.nextInt(DataProcess.RANDOMRANGE));
+		return DataProcess.getQuarter(rand);
 	}
 
 	public boolean getPoint(int b) {
@@ -32,6 +32,4 @@ public class BranchLine {
 		return oneBranchSet.size();
 	}
 
-	
-	
 }
