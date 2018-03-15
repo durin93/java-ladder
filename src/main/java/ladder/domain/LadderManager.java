@@ -1,4 +1,4 @@
-package ladder;
+package ladder.domain;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class LadderManager {
 		BranchLine branchLine = new BranchLine();
 
 		for (int j = 0; j < joinUser; j++) {
-			branchLine.add(j, DataProcess.getRandomBoolean(Util.RAND.nextInt(DataProcess.RANDOMRANGE)));
+			branchLine.add(j);
 		}
 		return branchLine;
 	}
