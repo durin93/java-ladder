@@ -42,5 +42,39 @@ public class DataProcess {
 		}
 		return false;
 	}
-	
+
+	public static int getUserNum(List<String> joinUser, String userName) {
+		return joinUser.indexOf(userName);
+	}
+
+	public static int getUserArrivePosition(ArrayList<User> userArriveInfo, int userNum) {
+		int position = 0;
+		for (int i = 0; i < userArriveInfo.size(); i++) {
+			position = getUserArrivePosition(userArriveInfo, userNum, i);
+		}
+		return position;
+	}
+
+	public static int getUserArrivePosition(ArrayList<User> userArriveInfo, int userNum, int i) {
+		if (userArriveInfo.get(i).isSameNum(userNum)) {
+			return i;
+		}
+		return 0;
+	}
+
+	public static ArrayList<User> getUserArriveInfo(ArrayList<BranchLine> branchLines, List<String> joinUser) {
+		ResultManager resultManager = ResultManager.makeUserList(branchLines, joinUser);
+		return resultManager.getUserArriveResult();
+	}
+
+	public static String getResultUserName(ArrayList<User> userArriveInfo, Result result, int userNum) {
+		int userResultPosition = DataProcess.getUserArrivePosition(userArriveInfo, userNum);
+		int resultPosition = userArriveInfo.get(userResultPosition).getCol();
+		return result.getResult(resultPosition);
+	}
+
+	public static String getResultName(ArrayList<User> userArriveInfo, Result result, int i) {
+		return result.getResult(userArriveInfo.get(i).getCol());
+	}
+
 }
