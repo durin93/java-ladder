@@ -3,15 +3,9 @@ package ladder.domain;
 public class User {
 
 	private int col;
-	private int num;
 	private String name;
 
-	public int getNum() {
-		return num;
-	}
-
 	public User(int col, String name) {
-		num = col;
 		this.name = name;
 		this.col = col;
 	}
@@ -32,8 +26,8 @@ public class User {
 		col--;
 	}
 
-	public Boolean isSameNum(int userNum) {
-		return num == userNum;
+	public Boolean isSameName(String userName) {
+		return name.equals(userName);
 	}
 
 }

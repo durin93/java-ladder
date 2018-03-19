@@ -29,8 +29,8 @@ public class DataProcess {
 		return flag;
 	}
 
-	public static String checkBranch(int i, int j, ArrayList<BranchLine> branchArr) {
-		if (branchArr.get(i).getPoint(j)) {
+	public static String checkBranch(int i, int j, BranchLineManager branchLines) {
+		if (branchLines.getPoint(i, j)) {
 			return "-----";
 		}
 		return "     ";
@@ -43,38 +43,23 @@ public class DataProcess {
 		return false;
 	}
 
-	public static int getUserNum(List<String> joinUser, String userName) {
-		return joinUser.indexOf(userName);
+	public static int getUserArrivePosition(RewardManager rewardManager, String userName) {
+		return rewardManager.getUserArrivePosition(rewardManager, userName);
 	}
 
-	public static int getUserArrivePosition(ArrayList<User> userArriveInfo, int userNum) {
-		int position = 0;
-		for (int i = 0; i < userArriveInfo.size(); i++) {
-			position = getUserArrivePosition(userArriveInfo, userNum, i);
-		}
-		return position;
-	}
-
-	public static int getUserArrivePosition(ArrayList<User> userArriveInfo, int userNum, int i) {
-		if (userArriveInfo.get(i).isSameNum(userNum)) {
-			return i;
-		}
-		return 0;
-	}
-
-	public static ArrayList<User> getUserArriveInfo(ArrayList<BranchLine> branchLines, List<String> joinUser) {
+	public static RewardManager getUserArriveInfo(BranchLineManager branchLines, ArrayList<User> joinUser) {
 		ResultManager resultManager = ResultManager.makeUserList(branchLines, joinUser);
-		return resultManager.getUserArriveResult();
+		return resultManager.getRewardManager();
 	}
 
-	public static String getResultUserName(ArrayList<User> userArriveInfo, Result result, int userNum) {
-		int userResultPosition = DataProcess.getUserArrivePosition(userArriveInfo, userNum);
-		int resultPosition = userArriveInfo.get(userResultPosition).getCol();
-		return result.getResult(resultPosition);
+	public static String getRewardName(RewardManager rewardManager, Reward reward, String userName) {
+		int userResultPosition = DataProcess.getUserArrivePosition(rewardManager, userName);
+		int resultPosition = rewardManager.getUserCol(userResultPosition);
+		return reward.getReward(resultPosition);
 	}
 
-	public static String getResultName(ArrayList<User> userArriveInfo, Result result, int i) {
-		return result.getResult(userArriveInfo.get(i).getCol());
+	public static String getResultName(RewardManager rewardManager, Reward reward, int i) {
+		return reward.getReward(rewardManager.getUserCol(i));
 	}
 
 }

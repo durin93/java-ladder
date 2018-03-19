@@ -1,63 +1,60 @@
 package ladder.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ResultManager {
 
-	private ArrayList<BranchLine> branchLines;
-	private ArrayList<User> userArriveResult;
+	private BranchLineManager branchLineManager;
+	private RewardManager rewardManager;
 
-	public static ResultManager makeUserList(ArrayList<BranchLine> branchLines, List<String> joinUser) {
-		ArrayList<User> userArriveResult = new ArrayList<>();
-		for (int i = 0; i < joinUser.size(); i++) {
-			User user = new User(i, joinUser.get(i));
-			userArriveResult.add(user);
+	public ResultManager(BranchLineManager branchLineManager, RewardManager rewardManager) {
+		this.rewardManager = rewardManager;
+		this.branchLineManager = branchLineManager;
+	}
+
+	public static ResultManager makeUserList(BranchLineManager branchLineManager, ArrayList<User> joinUser) {
+		RewardManager rewardManager = new RewardManager(joinUser);
+		return new ResultManager(branchLineManager, rewardManager);
+	}
+
+	public RewardManager getRewardManager() {
+		for (int i = 0; i < branchLineManager.size(); i++) {
+			getRewardManager(i);
+			sortRewardManager();
 		}
-		return new ResultManager(branchLines, userArriveResult);
+		return rewardManager;
 	}
 
-	public ResultManager(ArrayList<BranchLine> branchLines, ArrayList<User> userArriveResult) {
-		this.userArriveResult = userArriveResult;
-		this.branchLines = branchLines;
-	}
-
-	public ArrayList<User> getUserArriveResult() {
-		for (int i = 0; i < branchLines.size(); i++) {
-			getUserArriveResult(i);
-			sortUserArriveResult();
-		}
-		return userArriveResult;
-	}
-
-	public void getUserArriveResult(int i) {
-		for (int j = 0; j < userArriveResult.size(); j++) {
+	public void getRewardManager(int i) {
+		for (int j = 0; j < rewardManager.size(); j++) {
 			updateColProcess(i, j);
 		}
 	}
 
 	public void updateColProcess(int i, int j) {
-		if (j != userArriveResult.size() - 1 && branchLines.get(i).getPoint(j)) {
-			userArriveResult.get(j).increaseCol();
+		if (j != rewardManager.size() - 1 && branchLineManager.getPoint(i, j)) {
+			rewardManager.userMoveRight(j);
 			return;
 		}
-		if (j != 0 && branchLines.get(i).getPoint(j - 1)) {
-			userArriveResult.get(j).decreaseCol();
+		if (j != 0 && branchLineManager.getPoint(i, j - 1)) {
+			rewardManager.userMoveLeft(j);
 		}
 	}
 
-	public void sortUserArriveResult() {
-		for (int i = 0; i < userArriveResult.size() - 1; i++) {
-			sortUserArriveResult(i);
+	public void sortRewardManager() {
+		for (int i = 0; i < rewardManager.size() - 1; i++) {
+			sortRewardManager(i);
 		}
 	}
 
-	public void sortUserArriveResult(int i) {
-		if (userArriveResult.get(i).getCol() > userArriveResult.get(i + 1).getCol()) {
-			User tempUser = userArriveResult.get(i);
-			userArriveResult.set(i, userArriveResult.get(i + 1));
-			userArriveResult.set(i + 1, tempUser);
+	public void sortRewardManager(int i) {
+
+		if (rewardManager.getUserCol(i) > rewardManager.getUserCol(i + 1)) {
+			User tempUser = rewardManager.getUser(i);
+			rewardManager.setUser(i, rewardManager.getUser(i + 1));
+			rewardManager.setUser(i + 1, tempUser);
 		}
+
 	}
 
 }

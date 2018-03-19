@@ -1,36 +1,38 @@
 package ladder.domain;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ladder.view.InputManager;
 import ladder.view.PrintManager;
 
 public class GameController {
 	public static void startGame() {
-		List<String> joinUser = InputManager.joinUser();
-		Result result = Result.makeResultList(InputManager.result());
-		ArrayList<BranchLine> branchLines = LadderManager.makeLadder(joinUser.size(), InputManager.maxLadder());
+		ArrayList<User> joinUser = InputManager.joinUser();
+		Reward reward = Reward.of(InputManager.result());
 
-		startPrintProcess(joinUser, result, branchLines);
-		startResultProcess(DataProcess.getUserArriveInfo(branchLines, joinUser), result, joinUser);
+		BranchLineManager branchLineManager = new BranchLineManager(
+				LadderManager.makeLadder(joinUser.size(), InputManager.maxLadder()));
+
+		startPrintProcess(joinUser, reward, branchLineManager);
+		startResultProcess(DataProcess.getUserArriveInfo(branchLineManager, joinUser), reward, joinUser);
 	}
 
-	public static void startPrintProcess(List<String> joinUser, Result result, ArrayList<BranchLine> branchLines) {
+	public static void startPrintProcess(ArrayList<User> joinUser, Reward reward, BranchLineManager branchLines) {
 		PrintManager.printUser(joinUser);
 		PrintManager.printLadder(branchLines);
-		PrintManager.printResult(result);
+		PrintManager.printResult(reward);
 	}
 
-	public static void startResultProcess(ArrayList<User> userArriveInfo, Result result, List<String> joinUser) {
+	public static void startResultProcess(RewardManager rewardManager, Reward reward, ArrayList<User> joinUser) {
 		String resultUserName = InputManager.printQuestion();
 		if (resultUserName.equals("all")) {
-			PrintManager.printFinalResult(userArriveInfo, result);
+			PrintManager.printFinalResult(rewardManager, reward);
 			return;
 		}
-		int userNum = DataProcess.getUserNum(joinUser, resultUserName);
-		String resultName = DataProcess.getResultUserName(userArriveInfo, result, userNum);
-		PrintManager.printFinalResult(resultUserName, resultName);
+		
+		String rewardName = DataProcess.getRewardName(rewardManager, reward, resultUserName);
+		System.out.println(rewardName);
+		PrintManager.printFinalResult(resultUserName, rewardName);
 	}
 
 }

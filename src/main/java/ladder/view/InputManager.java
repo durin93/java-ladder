@@ -1,23 +1,30 @@
 package ladder.view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import ladder.domain.DataProcess;
+import ladder.domain.User;
 import ladder.domain.Util;
 
 public class InputManager {
 
-	public static List<String> joinUser() {
+	public static ArrayList<User> joinUser() {
 		List<String> names = null;
+		ArrayList<User> joinUser = new ArrayList<>();
 		Boolean flag = true;
-
 		while (flag) {
 			System.out.println("참여할 사람 이름을 입력하세요. (이름은 쉼표(,)로 구분하세요)");
 			names = Arrays.asList(Util.sc.nextLine().split(","));
 			flag = DataProcess.checkFlag(names);
 		}
-		return names;
+
+		for (int i = 0; i < names.size(); i++) {
+			joinUser.add(new User(i, names.get(i)));
+		}
+
+		return joinUser;
 	}
 
 	public static List<String> result() {
